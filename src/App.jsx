@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import './App.css'
+import PokedexList from './PokedexList'
 
 function App() {
 
   return (
-    <>
-    Cleaning Up
-    </>
+    <div className='app'>
+    <PokedexList />
+    </div>
   )
 }
 
