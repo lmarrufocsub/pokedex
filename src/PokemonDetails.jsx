@@ -6,7 +6,7 @@ function PokemonDetails() {
             <div className='pokemon-details-top'>
                 <span className="material-symbols-outlined arrow-back">arrow_back</span>
                 <p className='pokemon-details-name'>Pokemon Name</p>
-                <p className='pokemon-details-number'>#999</p>
+                <p className='pokemon-details-number subtitle-2'>#999</p>
             </div>
             <div className='pokemon-details-upper'>
                 <span className="material-symbols-outlined chevron">chevron_left</span>
@@ -31,6 +31,7 @@ function PokemonDetails() {
 
                         <p className='caption'>Weight</p>
                     </div>
+                    <div className='pokemon-details-info-border'></div>
                     <div className='pokemon-details-info' >
                         <div className='pokemon-details-values'>
                             <span className="material-symbols-outlined">height</span>
@@ -38,6 +39,7 @@ function PokemonDetails() {
                         </div>
                         <p className='caption'>Height</p>
                     </div>
+                    <div className='pokemon-details-info-border'></div>
                     <div className='pokemon-details-info'>
                         <div>
                             <p>Ability 1</p>
