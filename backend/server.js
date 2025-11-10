@@ -1,0 +1,63 @@
+import express from "express";
+import sqlite3 from "sqlite3";
+import bcrypt from "bcrypt";
+import cors from "cors";
+
+const app = express();
+const db = new sqlite3.Database("users.db");
+
+app.use(cors());
+app.use(express.json());
+
+db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+
+app.post("/signup", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username and password are required" });
+  }
+
+  db.get("SELECT * FROM users WHERE username = ?", [username], async (err, row) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (row) return res.status(400).json({ error: "Username already taken" });
+
+    try {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      db.run(
+        "INSERT INTO users (username, password) VALUES (?, ?)",
+        [username, hashedPassword],
+        function (err) {
+          if (err) return res.status(500).json({ error: err.message });
+
+          res.json({ message: "User registered successfully!", userId: this.lastID });
+        }
+      );
+    } catch (hashError) {
+      res.status(500).json({ error: hashError.message });
+    }
+  });
+});
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  db.get("SELECT * FROM users WHERE username = ?", [username], (err, user) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    bcrypt.compare(password, user.password, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message });
+
+      if (result) {
+        res.json({ message: `Welcome back, ${user.username}!` });
+      } else {
+        res.status(401).json({ message: "Invalid password" });
+      }
+    });
+  });
+});
+
+app.listen(5000, () => console.log("Server running on port 5000"));
