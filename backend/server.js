@@ -15,7 +15,8 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   username TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  )`);
+  )`
+);
 
 db.run(`CREATE TABLE IF NOT EXISTS pokemon (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -35,6 +36,15 @@ db.run(`CREATE TABLE IF NOT EXISTS pokemon (
       });
     };
   }
+);
+
+db.run(`CREATE TABLE IF NOT EXISTS user_pokemon (
+  user_id INTEGER NOT NULL,
+  pokemon_id INTEGER NOT NULL,
+  PRIMARY KEY (user_id, pokemon_id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (pokemon_id) REFERENCES pokemon_species(id)
+  )`
 );
 
 app.post("/signup", (req, res) => {
