@@ -5,11 +5,37 @@ import cors from "cors";
 
 const app = express();
 const db = new sqlite3.Database("users.db");
+db.run("PRAGMA foreign_keys = ON");
 
 app.use(cors());
 app.use(express.json());
 
-db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+db.run(`CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`);
+
+db.run(`CREATE TABLE IF NOT EXISTS pokemon (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT UNIQUE NOT NULL
+  )`,
+  async () => {
+    const pokemonArr = [];
+    for (let i = 1; i <= 151; i++) {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+      const data = await res.json();
+      pokemonArr.push(data);
+    };
+
+    for (const { name } of pokemonArr) {
+      await new Promise(resolve => {
+        db.run("INSERT OR IGNORE INTO pokemon (name) VALUES (?)", name, resolve);
+      });
+    };
+  }
+);
 
 app.post("/signup", (req, res) => {
   const { username, password } = req.body;
