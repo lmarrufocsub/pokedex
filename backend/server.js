@@ -41,6 +41,7 @@ db.run(`CREATE TABLE IF NOT EXISTS pokemon (
 db.run(`CREATE TABLE IF NOT EXISTS user_pokemon (
   user_id INTEGER NOT NULL,
   pokemon_id INTEGER NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id, pokemon_id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (pokemon_id) REFERENCES pokemon_species(id)
@@ -88,12 +89,22 @@ app.post("/login", (req, res) => {
       if (err) return res.status(500).json({ error: err.message });
 
       if (result) {
-        res.json({ message: `Welcome back, ${user.username}!` });
+        res.json({ message: `Welcome back, ${user.username}!`, user: { id: user.id, username: user.username } });
       } else {
         res.status(401).json({ message: "Invalid password" });
       }
     });
   });
+});
+
+app.get("/count", (req, res) => {
+  const userId = req.query.userId;
+
+  db.get(
+    "SELECT COUNT(*) AS total FROM user_pokemon WHERE user_id = ?", [userId], (err, row) => {
+      res.json({ total: row.total });
+    }
+  );
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));
