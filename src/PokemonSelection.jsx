@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import './PokemonSelection.css'
 
@@ -76,16 +77,27 @@ function nextPokemon3()
 
     return(
         <>
-          <div className='pokedex-selection-main'>
+          <div className='pokemon-selection-main'
+          style =
+          {{
+              backgroundImage: "url('/assets/Project3Selection.png')",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              width: "100%",
+          }}
+          >
+          <div className = 'pokedex-selection-header'>
+              <button onClick = {function() {nextPokemon1(); nextPokemon2() ;nextPokemon3();}} className = "button"> Next Pokemon </button>
+          </div>
+          <div className= "pokemon-selection-group">
               <div className={`pokemon-selection-box ${flipped1 ?  'flipped' : ''}`} onClick = {startFlip1} >
                   <div className = 'inner'>
                       <div className = 'front'>
                           <img className='pokemon-selection-sprite' src= {currentPokemon1.img} alt= {currentPokemon1.name} />
                       </div>
                       <div className = 'back'>
-                          <p className='pokemon-selection-number'> {currentPokemon1.number}</p>
                           <img className='pokemon-selection-sprite' src= {currentPokemon1.img} alt= {currentPokemon1.name} />
-                          <p className='pokemon-selection-name'> {currentPokemon1.name}</p>
                      </div>
                   </div>
               </div>
@@ -95,9 +107,7 @@ function nextPokemon3()
                           <img className='pokemon-selection-sprite' src= {currentPokemon2.img} alt= {currentPokemon2.name} />
                       </div>
                       <div className = 'back'>
-                          <p className='pokemon-selection-number'> {currentPokemon2.number}</p>
                           <img className='pokemon-selection-sprite' src= {currentPokemon2.img} alt= {currentPokemon2.name} />
-                          <p className='pokemon-selection-name'> {currentPokemon2.name}</p>
                       </div>
                   </div>
               </div>
@@ -107,18 +117,14 @@ function nextPokemon3()
                           <img className='pokemon-selection-sprite' src= {currentPokemon3.img} alt= {currentPokemon3.name} />
                       </div>
                       <div className = 'back'>
-                          <p className='pokemon-selection-number'> {currentPokemon3.number}</p>
                           <img className='pokemon-selection-sprite' src= {currentPokemon3.img} alt= {currentPokemon3.name} />
-                          <p className='pokemon-selection-name'> {currentPokemon3.name}</p>
                       </div>
                   </div>
               </div>
-          <button onClick = {function() {nextPokemon1(); nextPokemon2() ;nextPokemon3();}} className = "button"> Next Pokemon </button>
+          </div>
           </div>
         </>
     )
 }
 
 export default PokemonSelection
-
-

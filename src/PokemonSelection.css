@@ -1,45 +1,67 @@
-.pokedex-selection-main {
+.pokemon-selection-main {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: white;
+    justify-content: space-between;
+    min-height: 100vh;
+}
 
+.pokemon-selection-group {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  padding-bottom: 6vh;
+}
+
+.pokedex-selection-header {
+   display: flex;
+   justify-content: center;
+   padding-top: 20px;
 
 }
 
 .pokemon-selection-box {
-    display: flex;
-    flex-direction: column;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    margin: 4px;
-    width: 120px;
-    height: 124px;
-    box-shadow: 1px 1px 4px hsl(0, 0%, 70%);
+    width: 250px;
+    height: 250px;
+    animation: clickBackground 0.8s ease forwards;
 }
 
-.pokemon-selection-number {
-    color: yellow;
-    font-size: 8px;
-    margin-left: auto;
+@keyframes clickBackground {
+
+  from
+  {
+     transform: translateY(100px);
+     opacity: 0;
+  }
+  to
+  {
+     transform: translateY(0px);
+     opacity: 1;
+  }
+
 }
 
-pokemon-selection-sprite {
+.pokemon-selection-sprite {
     overflow: hidden;
     object-fit: contain;
+    width: 300px;
+    height: auto;
+    animation: rock 2s ease-in-out infinite alternate;
 }
 
-.pokemon-selection-name {
-    font-size: 10px;
-    text-align: center;
+@keyframes rock {
+    from {
+        transform: rotate(15deg);
+    }
+    to {
+        transform: rotate(-15deg);
+    }
 }
 
 .pokemon-selection-box:hover {
     cursor: pointer;
+    transform: scale(1.1);
+    filter: drop-shadow(0 6px 15px black);
 }
 
 
@@ -65,7 +87,6 @@ pokemon-selection-sprite {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .front img {
@@ -77,11 +98,12 @@ pokemon-selection-sprite {
 .back
 {
   transform: rotateY(180deg);
-  background: white;
 }
 
 
 .button {
+  font-weight: bold;
+  border: 3px solid red;
   width: auto;
   margin-top: 20px;
   padding: 10px 15px;
