@@ -1,0 +1,30 @@
+.trackerContainer {
+    padding: 30px;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    border-radius: 15px;
+    gap: 10px;
+}
+
+.trackerDivider {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.trackerLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trackerRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

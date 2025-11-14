@@ -26,9 +26,10 @@ function Login() {
         const data = await response.json();
 
         if (response.ok) {
-            setMessage("Login successful!");
             setUsername("");
             setPassword("");
+            sessionStorage.setItem("userName", data.user.username);
+            sessionStorage.setItem("userId", data.user.id);
             navigate("/profile");
         } else {
             setMessage(data.message || "Invalid username or password");
