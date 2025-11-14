@@ -14,6 +14,7 @@ function Tracker() {
 
     const [total, setTotal] = useState(0);
     const [userName, setUserName] = useState("");
+    const [recent, setRecent] = useState(0);
     
     useEffect(() => {
         setUserName(sessionStorage.getItem("userName"));
@@ -26,6 +27,13 @@ function Tracker() {
             .then(data => setTotal(data.total));
     }, [])
 
+    useEffect(() => {
+        const userId = sessionStorage.getItem("userId");
+        fetch(`http://localhost:5000/recent?userId=${userId}`)
+            .then(res => res.json())
+            .then(data => setRecent(data));
+    })
+
     return (
         <div className="trackerContainer">
             <h1>Pokémon Tracker</h1>
@@ -33,7 +41,7 @@ function Tracker() {
             <div className="trackerDivider">
                 <div className="trackerLeft">
                     <p>Recently Caught</p>
-                    <img className="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png"/>
+                    <img className="logo" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${recent}.png`}/>
                 </div>
                 <div className="trackerRight">
                     <p>Total Pokémon Caught</p>
