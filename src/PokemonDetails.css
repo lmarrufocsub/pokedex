@@ -35,7 +35,7 @@
 }
 
 .pokemon-sprite {
-     filter: brightness(0) saturate(100%) invert(45%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%);
+     /* filter: brightness(0) saturate(100%) invert(45%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%); */
      width: 320px;
 }
 
@@ -50,7 +50,7 @@
     box-shadow: inset 0px 0px 8px gray;
     max-width: 480px;
     position: relative;
-    margin-top: -140px;
+    margin-top: -52px;
 }
 
 .pokemon-details-types {
