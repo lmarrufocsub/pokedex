@@ -15,18 +15,18 @@
     border-radius: 8px;
     padding: 8px;
     margin: 4px;
-    width: 120px;
-    height: 124px;
+    width: 132px;
+    height: 140px;
     box-shadow: 1px 1px 4px hsl(0, 0%, 70%);
 }
 
 .pokemon-number {
     color: #666666;
-    font-size: 8px;
+    font-size: 12px;
     margin-left: auto;
 }
 
-.pokemon-sprite {
+#pokedex-sprite {
     overflow: hidden;
     object-fit: contain;
 }

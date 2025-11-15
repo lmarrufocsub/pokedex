@@ -1,63 +1,37 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './PokedexList.css'
 
 function PokedexList() {
 
+    const [pokemon, setPokemon] = useState([])
+
+    useEffect(() => {
+            const userId = sessionStorage.getItem("userId");
+            fetch(`http://localhost:5000/pokedex?userId=${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setPokemon(data)
+                })
+
+            console.log(pokemon)
+        }, [])
+
     return (
         <>
             <div className='pokedex-list-main'>
-
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-                <div className='pokemon-box'>
-                    <p className='pokemon-number'>#1</p>
-                    <img className='pokemon-sprite' src="https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png" alt="Bulbasaur" />
-                    <p className='pokemon-name'>Bulbasaur</p>
-                </div>
-
+                {
+                    pokemon.map((p) => {
+                        return (
+                            <Link key={p.pokemon_id} to={`/pokemon-details/${p.pokemon_id}`} className='pokemon-box'>
+                                <p className='pokemon-number'>{p.pokemon_id}</p>
+                                <img id='pokedex-sprite' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.pokemon_id}.png`} />
+                                <p>{p.name}</p>
+                                </Link>
+                        )
+                    })
+                }
             </div>
 
         </>

@@ -119,4 +119,17 @@ app.get("/recent", (req, res) => {
   );
 });
 
+app.get("/pokedex", (req, res) => {
+  const userId = req.query.userId;
+
+  db.all("SELECT pokemon_id FROM user_pokemon WHERE user_id = ? ORDER BY pokemon_id ASC", [userId], (err, rows) => {
+    if (err) return res.status(500).json({error: err.message});
+    if (rows.length === 0) {
+      return res.json([])
+    }
+
+    res.json(rows)
+  })
+})
+
 app.listen(5000, () => console.log("Server running on port 5000"));
