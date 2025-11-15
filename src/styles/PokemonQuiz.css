@@ -1,0 +1,27 @@
+.quiz-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 16px;
+}
+
+.quiz-question {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.quiz-option {
+    text-transform: capitalize;
+    width: 100%;
+    font-size: 32px;
+    padding: 20px 40px;
+    font-weight: 600;
+    background-color: black;
+}

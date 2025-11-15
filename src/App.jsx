@@ -7,6 +7,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Profile from "./Profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PokemonQuiz from './PokemonQuiz';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path='/pokedex' element={<PokedexList />} />
           <Route path='/pokemon-details' element={<PokemonDetails />}/>
+          <Route path='/pokemon-quiz' element={<PokemonQuiz />} />
           <Route path='/pokemon-selection' element={<PokemonSelection />}/>
         </Routes>
       </BrowserRouter>
