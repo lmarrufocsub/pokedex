@@ -6,14 +6,19 @@ import PokemonSelection from './PokemonSelection'
 import Login from "./Login";
 import Signup from "./Signup";
 import Profile from "./Profile";
+import Navbar  from "./Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PokemonQuiz from './PokemonQuiz';
 
 function App() {
 
+  const tokenCount = 5
+  const[token, setToken] = useState(tokenCount)
+
   return (
     <div className='app'>
       <BrowserRouter>
+          <Navbar navbartoken = {token} />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/signup" element={<Signup />} />
@@ -22,7 +27,7 @@ function App() {
           <Route path='/pokedex' element={<PokedexList />} />
           <Route path='/pokemon-details/:id' element={<PokemonDetails />}/>
           <Route path='/pokemon-quiz' element={<PokemonQuiz />} />
-          <Route path='/pokemon-selection' element={<PokemonSelection />}/>
+          <Route path='/pokemon-selection' element={<PokemonSelection selectiontoken = {token} setToken = {setToken} />}/>
         </Routes>
       </BrowserRouter>
     </div>
