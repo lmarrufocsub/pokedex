@@ -44,7 +44,7 @@ db.run(`CREATE TABLE IF NOT EXISTS user_pokemon (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id, pokemon_id),
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (pokemon_id) REFERENCES pokemon_species(id)
+  FOREIGN KEY (pokemon_id) REFERENCES pokemon(id)
   )`
 );
 
@@ -122,7 +122,7 @@ app.get("/recent", (req, res) => {
 app.get("/pokedex", (req, res) => {
   const userId = req.query.userId;
 
-  db.all("SELECT pokemon_id FROM user_pokemon WHERE user_id = ? ORDER BY pokemon_id ASC", [userId], (err, rows) => {
+  db.all("SELECT user_pokemon.pokemon_id AS id, pokemon.name FROM user_pokemon JOIN pokemon ON pokemon.id = user_pokemon.pokemon_id WHERE user_pokemon.user_id = ? ORDER BY user_pokemon.pokemon_id ASC", [userId], (err, rows) => {
     if (err) return res.status(500).json({error: err.message});
     if (rows.length === 0) {
       return res.json([])
