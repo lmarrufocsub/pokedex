@@ -37,7 +37,7 @@ function PokemonDetails() {
             .then(res => res.json())
             .then(data => {
                 // data: [{ id, name }, ...]
-                const ids = data.map(p => p.pokemon_id).sort((a, b) => a - b);
+                const ids = data.map(p => p.id).sort((a, b) => a - b);
                 setPokedexIds(ids);
             });
     }, []);
@@ -53,7 +53,7 @@ function PokemonDetails() {
         <div className='pokemon-details-container'>
             <div className='pokemon-details-top'>
                 <span className="material-symbols-outlined arrow-back" onClick={() => navigate("/pokedex")}>arrow_back</span>
-                <p className='pokemon-details-name'>{pokemon.name}</p>
+                <p className='pokemon-details-name'>{pokemon.name.toUpperCase()}</p>
                 <p className='pokemon-details-number subtitle-2'>#{pokemon.id}</p>
             </div>
             <div className='pokemon-details-upper'>

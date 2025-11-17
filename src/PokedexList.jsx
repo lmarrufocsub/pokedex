@@ -24,9 +24,9 @@ function PokedexList() {
                 {
                     pokemon.map((p) => {
                         return (
-                            <Link key={p.pokemon_id} to={`/pokemon-details/${p.pokemon_id}`} className='pokemon-box'>
-                                <p className='pokemon-number'>{p.pokemon_id}</p>
-                                <img id='pokedex-sprite' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.pokemon_id}.png`} />
+                            <Link key={p.id} to={`/pokemon-details/${p.id}`} className='pokemon-box'>
+                                <p className='pokemon-number'>{p.id}</p>
+                                <img id='pokedex-sprite' src={`https://play.pokemonshowdown.com/sprites/ani/${p.name}.gif`} />
                                 <p>{p.name}</p>
                                 </Link>
                         )
