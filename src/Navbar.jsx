@@ -1,15 +1,25 @@
 import React from 'react'
+import {useState} from 'react'
 import './Navbar.css'
+import { Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({navbartoken}) {
     return (
+     <>
         <div className='navbar-main'>
-            <p>Pokedex</p>
-            <p>Game Corner</p>
-            <p>Mystery Pull</p>
-            <p>Profile</p>
-            <button className='navbar-button'>Login</button>
+            <Link to="/pokedex">Pokedex</Link>
+            <Link to="/pokemon-quiz">Game Corner</Link>
+            <Link to="/pokemon-selection">Mystery Pull</Link>
+            <Link to="/profile">Profile</Link>
+            <button className='navbar-button'>
+                <Link to="/login">Login</Link>
+            </button>
         </div>
+        <div className = 'token'>
+            <span className = 'count'> x{navbartoken} </span>
+            <img src = "assets/Project3Token.png" alt = "token" className = 'tokenimage'/>
+        </div>
+     </>
     )
 }
 

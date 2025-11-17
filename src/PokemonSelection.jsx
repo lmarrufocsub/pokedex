@@ -1,8 +1,7 @@
-
 import { useState } from 'react'
 import './PokemonSelection.css'
 
-function PokemonSelection() {
+function PokemonSelection({selectiontoken, setToken}) {
 
     var randomPokemon
     const pokemonList =
@@ -31,7 +30,14 @@ const [currentPokemon1, setCurrentPokemon1] = useState(getRandomPokemon())
 
 function startFlip1()
 {
+   if (selectiontoken <= 0)
+   {
+      alert("No tokens left.")
+      return;
+   }
+
    setFlipped1(!flipped1)
+   setToken(selectiontoken - 1)
 }
 
 
@@ -48,7 +54,14 @@ const [currentPokemon2, setCurrentPokemon2] = useState(getRandomPokemon())
 
 function startFlip2()
 {
-   setFlipped2(!flipped2)
+    if (selectiontoken <= 0)
+    {
+        alert("No tokens left.")
+        return;
+    }
+
+    setFlipped2(!flipped2)
+    setToken(selectiontoken - 1)
 }
 
 
@@ -64,7 +77,14 @@ const [currentPokemon3, setCurrentPokemon3] = useState(getRandomPokemon())
 
 function startFlip3()
 {
-   setFlipped3(!flipped3)
+    if (selectiontoken <= 0)
+    {
+        alert("No tokens left.")
+        return;
+    }
+
+    setFlipped3(!flipped3)
+    setToken(selectiontoken - 1)
 }
 
 
