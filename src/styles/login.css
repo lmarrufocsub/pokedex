@@ -55,7 +55,7 @@ h2 {
     }
 }
 
-button {
+.login-button {
     font-size: 20px;
     width: 50%;
     box-sizing: border-box;
@@ -73,7 +73,7 @@ button {
     transition: 150ms ease;
 }
 
-button:hover {
+.login-button:hover {
   background-color: #A10F2C;
 }
 
