@@ -10,29 +10,33 @@
 
 .pokemon-box {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     flex-direction: column;
     border: none;
     border-radius: 8px;
     padding: 8px;
     margin: 4px;
-    width: 132px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
     box-shadow: 1px 1px 4px hsl(0, 0%, 70%);
 }
 
 .pokemon-number {
     color: #666666;
-    font-size: 12px;
+    font-size: 16px;
     margin-left: auto;
 }
 
 #pokedex-sprite {
-    overflow: hidden;
+    flex: 1;
     object-fit: contain;
 }
 
 .pokemon-name {
-    font-size: 10px;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 400;
     text-align: center;
 }
 
