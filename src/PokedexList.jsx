@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import './PokedexList.css'
 import PokemonDetails from './PokemonDetails'
 
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function PokedexList() {
 
     const [pokemon, setPokemon] = useState([])
@@ -47,7 +51,7 @@ function PokedexList() {
                                 <button key={p.id} className='pokemon-box' onClick={() => setSelectedPokemonId(p.id)}>
                                     <p className='pokemon-number'>{p.id}</p>
                                     <img id='pokedex-sprite' src={`https://play.pokemonshowdown.com/sprites/ani/${p.name}.gif`} />
-                                    <p>{p.name}</p>
+                                    <p className='pokemon-name'>{capitalize(p.name)}</p>
                                 </button>
                             )
                         })
