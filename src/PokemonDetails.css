@@ -6,10 +6,13 @@
     padding-top: 16px;
 }
 
+
+
 .pokemon-details-top {
     display: flex;
     align-items: center;
-    gap: 80px;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .pokemon-details-name {
@@ -169,6 +172,96 @@
 
 .arrow-back, .chevron {
     cursor: pointer;
+}
+
+/* Normal */
+.pokemon-details-container--normal {
+  background-color: #a8a77a;
+}
+
+/* Fire */
+.pokemon-details-container--fire {
+  background-color: #ee8130;
+}
+
+/* Water */
+.pokemon-details-container--water {
+  background-color: #6390f0;
+}
+
+/* Electric */
+.pokemon-details-container--electric {
+  background-color: #f7d02c;
+}
+
+/* Grass */
+.pokemon-details-container--grass {
+  background-color: #7ac74c;
+}
+
+/* Ice */
+.pokemon-details-container--ice {
+  background-color: #96d9d6;
+}
+
+/* Fighting */
+.pokemon-details-container--fighting {
+  background-color: #c22e28;
+}
+
+/* Poison */
+.pokemon-details-container--poison {
+  background-color: #a33ea1;
+}
+
+/* Ground */
+.pokemon-details-container--ground {
+  background-color: #e2bf65;
+}
+
+/* Flying */
+.pokemon-details-container--flying {
+  background-color: #a98ff3;
+}
+
+/* Psychic */
+.pokemon-details-container--psychic {
+  background-color: #f95587;
+}
+
+/* Bug */
+.pokemon-details-container--bug {
+  background-color: #a6b91a;
+}
+
+/* Rock */
+.pokemon-details-container--rock {
+  background-color: #b6a136;
+}
+
+/* Ghost */
+.pokemon-details-container--ghost {
+  background-color: #735797;
+}
+
+/* Dragon */
+.pokemon-details-container--dragon {
+  background-color: #6f35fc;
+}
+
+/* Dark */
+.pokemon-details-container--dark {
+  background-color: #705746;
+}
+
+/* Steel */
+.pokemon-details-container--steel {
+  background-color: #b7b7ce;
+}
+
+/* Fairy */
+.pokemon-details-container--fairy {
+  background-color: #d685ad;
 }
 
 /* Normal */

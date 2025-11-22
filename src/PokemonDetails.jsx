@@ -26,7 +26,7 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
     const description = entry ? entry.flavor_text.replace(/\s+/g, " ") : "";
 
     return (
-        <div className='pokemon-details-container'>
+        <div className={`pokemon-details-container pokemon-details-container--${p.types[0].type.name}`}>
             <div className='pokemon-details-top'>
                 <span className="material-symbols-outlined arrow-back" onClick={() => setSelectedPokemonId(null)}>arrow_back</span>
                 <p className='pokemon-details-name'>{p.name.toUpperCase()}</p>
