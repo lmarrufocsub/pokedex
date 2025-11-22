@@ -48,7 +48,7 @@ function PokedexList() {
                     {
                         pokemon.map((p) => {
                             return (
-                                <button key={p.id} className='pokemon-box' onClick={() => setSelectedPokemonId(p.id)}>
+                                <button key={p.id} className={`pokemon-box type-${p.types[0]}`} onClick={() => setSelectedPokemonId(p.id)}>
                                     <p className='pokemon-number'>{p.id}</p>
                                     <img id='pokedex-sprite' src={`https://play.pokemonshowdown.com/sprites/ani/${p.name}.gif`} />
                                     <p className='pokemon-name'>{capitalize(p.name)}</p>

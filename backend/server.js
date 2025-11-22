@@ -20,7 +20,8 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
 
 db.run(`CREATE TABLE IF NOT EXISTS pokemon (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE NOT NULL
+    name TEXT UNIQUE NOT NULL,
+    types TEXT NOT NULL
   )`,
   async () => {
     const pokemonArr = [];
@@ -30,9 +31,11 @@ db.run(`CREATE TABLE IF NOT EXISTS pokemon (
       pokemonArr.push(data);
     };
 
-    for (const { name } of pokemonArr) {
+    for (const p of pokemonArr) {
+      const name = p.name;
+      const types = p.types.map(t => t.type.name)
       await new Promise(resolve => {
-        db.run("INSERT OR IGNORE INTO pokemon (name) VALUES (?)", name, resolve);
+        db.run("INSERT OR IGNORE INTO pokemon (name, types) VALUES (?, ?)", [name, JSON.stringify(types)], resolve);
       });
     };
   }
@@ -122,13 +125,19 @@ app.get("/recent", (req, res) => {
 app.get("/pokedex", (req, res) => {
   const userId = req.query.userId;
 
-  db.all("SELECT user_pokemon.pokemon_id AS id, pokemon.name FROM user_pokemon JOIN pokemon ON pokemon.id = user_pokemon.pokemon_id WHERE user_pokemon.user_id = ? ORDER BY user_pokemon.pokemon_id ASC", [userId], (err, rows) => {
+  db.all("SELECT user_pokemon.pokemon_id AS id, pokemon.name, pokemon.types FROM user_pokemon JOIN pokemon ON pokemon.id = user_pokemon.pokemon_id WHERE user_pokemon.user_id = ? ORDER BY user_pokemon.pokemon_id ASC", [userId], (err, rows) => {
     if (err) return res.status(500).json({error: err.message});
     if (rows.length === 0) {
       return res.json([])
     }
 
-    res.json(rows)
+    const result = rows.map(row => ({
+      id: row.id,
+      name: row.name,
+      types: JSON.parse(row.types)  // "['grass','poison']" -> ["grass","poison"]
+    }));
+
+    res.json(result);
   })
 })
 

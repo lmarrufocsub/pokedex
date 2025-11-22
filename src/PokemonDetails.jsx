@@ -5,6 +5,8 @@ import './PokemonDetails.css'
 function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPokemonId, pokedexIds }) {
     const p = pokemonDetails
     const ps = pokemonSpecies
+    const heightMeters = pokemonDetails.height / 10;      // dm → m
+    const weightKg = pokemonDetails.weight / 10;          // hg → kg
 
     const currentIndex = pokedexIds.indexOf(p.id);
 
@@ -24,7 +26,7 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
     const description = entry ? entry.flavor_text.replace(/\s+/g, " ") : "";
 
     return (
-        <div className='pokemon-details-container'>
+        <div className={`pokemon-details-container pokemon-details-container--${p.types[0].type.name}`}>
             <div className='pokemon-details-top'>
                 <span className="material-symbols-outlined arrow-back" onClick={() => setSelectedPokemonId(null)}>arrow_back</span>
                 <p className='pokemon-details-name'>{p.name.toUpperCase()}</p>
@@ -42,7 +44,7 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
                     <div className='pokemon-details-types'>
                         {
                             p.types.map(t => (
-                                <p className='pokemon-details-type'>{t.type.name}</p>
+                                <p className={`pokemon-details-type pokemon-details-type--${t.type.name}`}>{t.type.name.toUpperCase()}</p>
                             ))
                         }
                     </div>
@@ -53,7 +55,7 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
                         <div className='pokemon-details-info'>
                             <div className='pokemon-details-values'>
                                 <span className="material-symbols-outlined">weight</span>
-                                <p>{p.weight}kg</p>
+                                <p>{weightKg}kg</p>
                             </div>
 
                             <p className='caption'>Weight</p>
@@ -62,19 +64,10 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
                         <div className='pokemon-details-info' >
                             <div className='pokemon-details-values'>
                                 <span className="material-symbols-outlined">height</span>
-                                <p>{p.height}kg</p>
+                                <p>{heightMeters}m</p>
                             </div>
                             <p className='caption'>Height</p>
                         </div>
-                        {/* <div className='pokemon-details-info-border'></div>
-                        <div className='pokemon-details-info'>
-                            <div>
-                                {p.moves.slice(0, 2).map(m => (
-                                    <p key={m.move.name}>{m.move.name}</p>
-                                ))}
-                            </div>
-                            <p className='caption'>Moves</p>
-                        </div> */}
                     </div>
                     <div className='pokemon-details-description'>
                         {description}
@@ -94,10 +87,6 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
 
                             </div>
                             <div>
-                                {/* <div className='pokemon-details-stat-right'>
-                                <p>999</p>
-                                <div className='pokemon-details-stat-line'></div>
-                            </div> */}
                                 {p.stats.map((s) => (
                                     <div className='pokemon-details-stat-right' key={s.stat.name}>
                                         <p>

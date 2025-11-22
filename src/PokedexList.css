@@ -21,13 +21,18 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    border: none;
-    border-radius: 8px;
     padding: 8px;
     margin: 4px;
-    width: 180px;
-    height: 180px;
-    box-shadow: 1px 1px 4px hsl(0, 0%, 70%);
+    width: 200px;
+    height: 200px;
+   /* default theme (overridden by type-*) */
+  --card-bg: #f7f7f7;
+  --card-border: #ddd;
+  --card-strip: transparent;
+
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.14);
 }
 
 .pokemon-number {
@@ -39,6 +44,7 @@
 #pokedex-sprite {
     flex: 1;
     object-fit: contain;
+    max-height: 100px;
 }
 
 .pokemon-name {
@@ -55,7 +61,7 @@
 .pokemon-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,12 +69,140 @@
 }
 
 .pokemon-modal-shell {
-  background: #ffffff;      /* optional if PokemonDetails already has bg */
-  border-radius: 8px;
-  max-width: 520px;
-  width: 90%;
-  overflow-y: auto;         /* scroll if details are tall */
-  max-height: 95vh;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
+    background: #ffffff;
+    /* optional if PokemonDetails already has bg */
+    border-radius: 8px;
+    max-width: 520px;
+    width: 90%;
+    overflow-y: auto;
+    /* scroll if details are tall */
+    max-height: 95vh;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* 1. NORMAL */
+.pokemon-box.type-normal {
+  --card-bg: #e5e5e5;
+  --card-border: #757575;
+  --card-strip: #616161;
+}
+
+/* 2. FIRE */
+.pokemon-box.type-fire {
+  --card-bg: #ffbba0;
+  --card-border: #ff5722;
+  --card-strip: #e64a19;
+}
+
+/* 3. WATER */
+.pokemon-box.type-water {
+  --card-bg: #b3d9ff;
+  --card-border: #2196f3;
+  --card-strip: #1976d2;
+}
+
+/* 4. ELECTRIC */
+.pokemon-box.type-electric {
+  --card-bg: #ffe680;
+  --card-border: #fbc02d;
+  --card-strip: #f9a825;
+}
+
+/* 5. GRASS */
+.pokemon-box.type-grass {
+  --card-bg: #b2f2b8;
+  --card-border: #43a047;
+  --card-strip: #2e7d32;
+}
+
+/* 6. ICE */
+.pokemon-box.type-ice {
+  --card-bg: #bdefff;
+  --card-border: #03a9f4;
+  --card-strip: #0288d1;
+}
+
+/* 7. FIGHTING */
+.pokemon-box.type-fighting {
+  --card-bg: #ff9e9e;
+  --card-border: #e53935;
+  --card-strip: #c62828;
+}
+
+/* 8. POISON */
+.pokemon-box.type-poison {
+  --card-bg: #f0b0ff;
+  --card-border: #ab47bc;
+  --card-strip: #8e24aa;
+}
+
+/* 9. GROUND */
+.pokemon-box.type-ground {
+  --card-bg: #f0d39b;
+  --card-border: #a97439;
+  --card-strip: #8d6e63;
+}
+
+/* 10. FLYING */
+.pokemon-box.type-flying {
+  --card-bg: #c7d1ff;
+  --card-border: #5c6bc0;
+  --card-strip: #3f51b5;
+}
+
+/* 11. PSYCHIC */
+.pokemon-box.type-psychic {
+  --card-bg: #ffb2de;
+  --card-border: #ec407a;
+  --card-strip: #d81b60;
+}
+
+/* 12. BUG */
+.pokemon-box.type-bug {
+  --card-bg: #d6ef9f;
+  --card-border: #7cb342;
+  --card-strip: #558b2f;
+}
+
+/* 13. ROCK */
+.pokemon-box.type-rock {
+  --card-bg: #ddc897;
+  --card-border: #8d6e63;
+  --card-strip: #6d4c41;
+}
+
+/* 14. GHOST */
+.pokemon-box.type-ghost {
+  --card-bg: #cec2ff;
+  --card-border: #7e57c2;
+  --card-strip: #5e35b1;
+}
+
+/* 15. DRAGON */
+.pokemon-box.type-dragon {
+  --card-bg: #c4ccff;
+  --card-border: #3f51b5;
+  --card-strip: #283593;
+}
+
+/* 16. DARK */
+.pokemon-box.type-dark {
+  --card-bg: #c2bccb;
+  --card-border: #4e342e;
+  --card-strip: #3e2723;
+}
+
+/* 17. STEEL */
+.pokemon-box.type-steel {
+  --card-bg: #d3d9e5;
+  --card-border: #78909c;
+  --card-strip: #546e7a;
+}
+
+/* 18. FAIRY */
+.pokemon-box.type-fairy {
+  --card-bg: #ffc2ea;
+  --card-border: #f06292;
+  --card-strip: #ec407a;
 }
