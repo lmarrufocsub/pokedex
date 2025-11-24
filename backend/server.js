@@ -25,7 +25,7 @@ db.run(`CREATE TABLE IF NOT EXISTS pokemon (
   )`,
   async () => {
     const pokemonArr = [];
-    for (let i = 1; i <= 151; i++) {
+    for (let i = 1; i <= 201; i++) {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
       const data = await res.json();
       pokemonArr.push(data);
@@ -38,6 +38,8 @@ db.run(`CREATE TABLE IF NOT EXISTS pokemon (
         db.run("INSERT OR IGNORE INTO pokemon (name, types) VALUES (?, ?)", [name, JSON.stringify(types)], resolve);
       });
     };
+
+    seedTestUsersAndPokemon();
   }
 );
 
@@ -50,6 +52,59 @@ db.run(`CREATE TABLE IF NOT EXISTS user_pokemon (
   FOREIGN KEY (pokemon_id) REFERENCES pokemon(id)
   )`
 );
+
+function seedUserPokemon(userId, startId, endId) {
+  for (let pid = startId; pid <= endId; pid++) {
+    db.run(
+      "INSERT OR IGNORE INTO user_pokemon (user_id, pokemon_id) VALUES (?, ?)",
+      [userId, pid]
+    );
+  }
+}
+
+function upsertTestUser(username, password, startId, endId) {
+  const saltRounds = 10;
+
+  db.get("SELECT id FROM users WHERE username = ?", [username], (err, row) => {
+    if (err) {
+      console.error("Error checking seed user:", err);
+      return;
+    }
+
+    if (row) {
+      console.log(`Seed user '${username}' already exists, ensuring Pokémon range.`);
+      seedUserPokemon(row.id, startId, endId);
+      return;
+    }
+
+    bcrypt.hash(password, saltRounds, (hashErr, hash) => {
+      if (hashErr) {
+        console.error("Error hashing seed password:", hashErr);
+        return;
+      }
+
+      db.run(
+        "INSERT INTO users (username, password) VALUES (?, ?)",
+        [username, hash],
+        function (insertErr) {
+          if (insertErr) {
+            console.error("Error inserting seed user:", insertErr);
+          } else {
+            console.log(`Seeded test user '${username}'.`);
+            const newUserId = this.lastID;
+            seedUserPokemon(newUserId, startId, endId);
+          }
+        }
+      );
+    });
+  });
+}
+
+function seedTestUsersAndPokemon() {
+  upsertTestUser("test1", "test1", 1, 100);
+  upsertTestUser("test2", "test2", 101, 200);
+}
+
 
 app.post("/signup", (req, res) => {
   const { username, password } = req.body;
