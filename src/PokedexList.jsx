@@ -4,7 +4,7 @@ import './PokedexList.css'
 import PokemonDetails from './PokemonDetails'
 
 function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function PokedexList() {
@@ -33,12 +33,25 @@ function PokedexList() {
             return
         }
 
-        fetch(`https://pokeapi.co/api/v2/pokemon/${selectedPokemondId}`)
-            .then(res => res.json())
-            .then(json => setPokemonDetails(json));
-        fetch(`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemondId}`)
-            .then(res => res.json())
-            .then(json => setPokemonSpecies(json));
+        Promise.all([
+            fetch(`https://pokeapi.co/api/v2/pokemon/${selectedPokemondId}`).then(res => res.json()),
+            fetch(`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemondId}`).then(res => res.json())
+        ])
+            .then(([detailsJson, speciesJson]) => {
+                setPokemonDetails(detailsJson);
+                setPokemonSpecies(speciesJson);
+
+                // new Audio(
+                //     `https://play.pokemonshowdown.com/audio/cries/${detailsJson.name.toLowerCase()}.ogg`
+                // )
+                //     .play()
+                //     .catch(() => {
+
+                //     });
+            })
+            .catch(err => {
+                console.error("Error loading Pokémon:", err);
+            });
     }, [selectedPokemondId])
 
     return (
@@ -64,10 +77,10 @@ function PokedexList() {
                                 className="pokemon-modal-shell"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                
+
 
                                 {pokemonDetails && (
-                                    <PokemonDetails pokemonDetails={pokemonDetails} pokemonSpecies={pokemonSpecies} pokemon={pokemon} setSelectedPokemonId={setSelectedPokemonId} pokedexIds={pokedexIds}/>
+                                    <PokemonDetails pokemonDetails={pokemonDetails} pokemonSpecies={pokemonSpecies} pokemon={pokemon} setSelectedPokemonId={setSelectedPokemonId} pokedexIds={pokedexIds} />
                                 )}
                             </div>
                         </div>
