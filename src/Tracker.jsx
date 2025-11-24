@@ -6,12 +6,6 @@ function Tracker() {
 
     const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        sessionStorage.removeItem("userName");
-        sessionStorage.removeItem("userId");
-        navigate("/login");
-    };
-
     const [total, setTotal] = useState(0);
     const [userName, setUserName] = useState("");
     const [recent, setRecent] = useState(0);
@@ -48,7 +42,6 @@ function Tracker() {
                     <p>{total} / 151</p>
                 </div>
             </div>
-            <button onClick={handleLogout}>Log Out</button>
         </div>
     );
 }
