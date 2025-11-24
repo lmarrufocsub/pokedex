@@ -7,7 +7,6 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
     const ps = pokemonSpecies
     const heightMeters = pokemonDetails.height / 10;      // dm → m
     const weightKg = pokemonDetails.weight / 10;          // hg → kg
-
     const currentIndex = pokedexIds.indexOf(p.id);
 
     const prevId = currentIndex > 0 ? pokedexIds[currentIndex - 1] : null;
@@ -89,10 +88,13 @@ function PokemonDetails({ pokemonDetails, pokemonSpecies, pokemon, setSelectedPo
                             <div>
                                 {p.stats.map((s) => (
                                     <div className='pokemon-details-stat-right' key={s.stat.name}>
-                                        <p>
+                                        <p className='pokemon-details-stat-value'>
                                             {s.base_stat}
                                         </p>
-                                        <div className='pokemon-details-stat-line'></div>
+                                        <div className='pokemon-details-stat-line-wrapper'>
+                                            <div className='pokemon-details-stat-line' style={{ width: `${Math.round((s.base_stat / 255) * 100)}%` }}></div>
+                                        </div>
+
                                     </div>
 
                                 ))}
