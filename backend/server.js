@@ -14,6 +14,7 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL,
+  tokens INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`
 );
@@ -159,8 +160,8 @@ app.get("/count", (req, res) => {
   const userId = req.query.userId;
 
   db.get("SELECT COUNT(*) AS total FROM user_pokemon WHERE user_id = ?", [userId], (err, row) => {
-      res.json({ total: row.total });
-    }
+    res.json({ total: row.total });
+  }
   );
 });
 
@@ -168,12 +169,12 @@ app.get("/recent", (req, res) => {
   const userId = req.query.userId;
 
   db.get("SELECT pokemon_id FROM user_pokemon WHERE user_id = ? ORDER BY created_at DESC LIMIT 1", [userId], (err, row) => {
-      if(!row) {
-        return res.json(null);
-      } else {
-        res.json(row.pokemon_id);
-      }
+    if (!row) {
+      return res.json(null);
+    } else {
+      res.json(row.pokemon_id);
     }
+  }
   );
 });
 
@@ -181,7 +182,7 @@ app.get("/pokedex", (req, res) => {
   const userId = req.query.userId;
 
   db.all("SELECT user_pokemon.pokemon_id AS id, pokemon.name, pokemon.types FROM user_pokemon JOIN pokemon ON pokemon.id = user_pokemon.pokemon_id WHERE user_pokemon.user_id = ? ORDER BY user_pokemon.pokemon_id ASC", [userId], (err, rows) => {
-    if (err) return res.status(500).json({error: err.message});
+    if (err) return res.status(500).json({ error: err.message });
     if (rows.length === 0) {
       return res.json([])
     }
@@ -199,9 +200,83 @@ app.get("/pokedex", (req, res) => {
 app.get("/pokemonselection", (req, res) => {
 
   db.all("SELECT * FROM pokemon ORDER BY RANDOM() LIMIT 3", (err, rows) => {
-    if (err) return res.status(500).json({error: err.message});
+    if (err) return res.status(500).json({ error: err.message });
     res.json(rows)
   })
 })
+
+app.get("/tokens", (req, res) => {
+  const userId = req.query.userId;
+
+  db.get(
+    "SELECT tokens FROM users WHERE id = ?",
+    [userId],
+    (err, row) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (!row) return res.status(404).json({ error: "User not found" });
+
+      res.json({ tokens: row.tokens });
+    }
+  );
+})
+
+app.post("/tokens/add", (req, res) => {
+  const { userId, amount } = req.body;
+
+  db.run(
+    "UPDATE users SET tokens = tokens + ? WHERE id = ?",
+    [amount, userId],
+    function (err) {
+      if (err) return res.status(500).json({ error: err.message });
+
+      // optional: return new total
+      db.get(
+        "SELECT tokens FROM users WHERE id = ?",
+        [userId],
+        (getErr, row) => {
+          if (getErr) return res.status(500).json({ error: getErr.message });
+          res.json({ tokens: row.tokens });
+        }
+      );
+    }
+  );
+});
+
+app.post("/tokens/use", (req, res) => {
+  const { userId, amount } = req.body;
+
+  if (!userId || !amount || amount <= 0) {
+    return res.status(400).json({ error: "userId and positive amount are required" });
+  }
+
+  db.run(
+    "UPDATE users SET tokens = tokens - ? WHERE id = ? AND tokens >= ?",
+    [amount, userId, amount],
+    function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+      if (this.changes === 0) {
+        return res.status(400).json({ error: "Not enough tokens" });
+      }
+
+      db.get(
+        "SELECT tokens FROM users WHERE id = ?",
+        [userId],
+        (getErr, row) => {
+          if (getErr) {
+            return res.status(500).json({ error: getErr.message });
+          }
+          if (!row) {
+            return res.status(404).json({ error: "User not found" });
+          }
+
+          res.json({ tokens: row.tokens });
+        }
+      );
+    }
+  );
+});
 
 app.listen(5000, () => console.log("Server running on port 5000"));

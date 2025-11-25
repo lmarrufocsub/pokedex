@@ -14,13 +14,37 @@ import ProtectedRoute from './ProtectedRoute'
 function App() {
   const location = useLocation()
   const [userId, setUserId] = useState(() => sessionStorage.getItem("userId"))
-  const tokenCount = 5
-  const [token, setToken] = useState(tokenCount)
+  const [token, setToken] = useState(0)
 
   useEffect(() => {
     const storedId = sessionStorage.getItem("userId")
     setUserId(storedId)
   }, [location])
+
+  useEffect(() => {
+    if (!userId) {
+      setToken(0);
+      return;
+    }
+
+    const fetchTokens = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/tokens?userId=${userId}`
+        );
+        if (!res.ok) {
+          console.error("Failed to fetch tokens");
+          return;
+        }
+        const data = await res.json();
+        setToken(data.tokens);
+      } catch (err) {
+        console.error("Error fetching tokens:", err);
+      }
+    };
+
+    fetchTokens();
+  }, [userId])
 
   const handleLogout = () => {
     sessionStorage.removeItem("userName");
@@ -28,6 +52,56 @@ function App() {
     setUserId(null);
     Navigate("/login");
   };
+
+  const handleCorrectQuizAnswer = async () => {
+    if (!userId) return;
+
+    try {
+      const res = await fetch("http://localhost:5000/tokens/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, amount: 1 }),
+      });
+
+      if (!res.ok) {
+        console.error("Failed to add token");
+        return;
+      }
+
+      const data = await res.json();
+      setToken(data.tokens);
+    } catch (err) {
+      console.error("Error updating tokens:", err);
+    }
+  }
+
+  const handleUseToken = async (cost = 1) => {
+  if (!userId) return;
+
+  if (token < cost) {
+    console.warn("Not enough tokens");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/tokens/use", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, amount: cost }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      console.error("Failed to use token:", errorData.error || res.statusText);
+      return;
+    }
+
+    const data = await res.json();
+    setToken(data.tokens);
+  } catch (err) {
+    console.error("Error using token:", err);
+  }
+};
 
   return (
     <div className='app'>
@@ -60,8 +134,8 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/pokedex' element={<ProtectedRoute><PokedexList /></ProtectedRoute>} />
         <Route path='/pokemon-details/:id' element={<ProtectedRoute><PokemonDetails /></ProtectedRoute>} />
-        <Route path='/pokemon-quiz' element={<ProtectedRoute><PokemonQuiz /></ProtectedRoute>} />
-        <Route path='/pokemon-selection' element={<ProtectedRoute><PokemonSelection selectiontoken={token} setToken={setToken} /></ProtectedRoute>} />
+        <Route path='/pokemon-quiz' element={<ProtectedRoute><PokemonQuiz onCorrectAnswer={handleCorrectQuizAnswer} /></ProtectedRoute>} />
+        <Route path='/pokemon-selection' element={<ProtectedRoute><PokemonSelection selectiontoken={token} handleUseToken={() => handleUseToken(1)} /></ProtectedRoute>} />
       </Routes>
     </div>
   )

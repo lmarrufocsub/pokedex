@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import './PokemonSelection.css'
 
-function PokemonSelection({selectiontoken, setToken}) {
-
-const [pokemonList, setPokemonList] = useState([])
+function PokemonSelection({selectiontoken, handleUseToken}) {
 
 async function fetchRandomPokemon(){
     const res = await fetch("http://localhost:5000/pokemonselection")
@@ -42,14 +40,8 @@ const [currentPokemon1, setCurrentPokemon1] = useState()
 
 function startFlip1()
 {
-   if (selectiontoken <= 0)
-   {
-      alert("No tokens left.")
-      return
-   }
-
    setFlipped1(!flipped1)
-   setToken(selectiontoken - 1)
+   handleUseToken()
 }
 
 const [flipped2, setFlipped2] = useState()
@@ -57,14 +49,8 @@ const [currentPokemon2, setCurrentPokemon2] = useState()
 
 function startFlip2()
 {
-    if (selectiontoken <= 0)
-    {
-        alert("No tokens left.")
-        return
-    }
-
     setFlipped2(!flipped2)
-    setToken(selectiontoken - 1)
+    handleUseToken()
 }
 
 const [flipped3, setFlipped3] = useState()
@@ -72,14 +58,8 @@ const [currentPokemon3, setCurrentPokemon3] = useState()
 
 function startFlip3()
 {
-    if (selectiontoken <= 0)
-    {
-        alert("No tokens left.")
-        return
-    }
-
     setFlipped3(!flipped3)
-    setToken(selectiontoken - 1)
+    handleUseToken()
 }
 
 if (!currentPokemon1) {
