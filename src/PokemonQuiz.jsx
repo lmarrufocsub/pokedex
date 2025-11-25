@@ -85,23 +85,33 @@ export function usePokemonQuizState() {
         buildRandomQuestion()
     }, [buildRandomQuestion])
 
-    return {question}
+    return {question, buildRandomQuestion}
 }
 
-function PokemonQuiz() {
+function PokemonQuiz({onCorrectAnswer}) {
 
-    const {question} = usePokemonQuizState()
+    const {question, buildRandomQuestion} = usePokemonQuizState()
 
     if (!question) return null;
+
+    function handleAnswerClick(index) {
+        const isCorrect = index === question.correctIndex;
+
+        if (isCorrect && typeof onCorrectAnswer === "function") {
+            onCorrectAnswer()
+        }
+
+        buildRandomQuestion()
+    }
 
     return (
         <div className='quiz-main-container'>
             <p className='quiz-question'>{question.prompt}</p>
             <img className='quiz-image' src={question.imageUrl} alt="" />
             <div className='quiz-options'>
-                {question.options.map((answerText) => {
+                {question.options.map((answerText, index) => {
                     return (
-                        <button className='quiz-option'>{answerText}</button>
+                        <button onClick={() => handleAnswerClick(index)} className='quiz-option'>{answerText}</button>
                     )
                 })}
             </div>
