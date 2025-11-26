@@ -10,6 +10,7 @@ import Navbar from "./Navbar";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import PokemonQuiz from './PokemonQuiz';
 import ProtectedRoute from './ProtectedRoute'
+import Achievements from './Achievements'
 
 function App() {
   const location = useLocation()
@@ -136,6 +137,7 @@ function App() {
         <Route path='/pokemon-details/:id' element={<ProtectedRoute><PokemonDetails /></ProtectedRoute>} />
         <Route path='/pokemon-quiz' element={<ProtectedRoute><PokemonQuiz onCorrectAnswer={handleCorrectQuizAnswer} /></ProtectedRoute>} />
         <Route path='/pokemon-selection' element={<ProtectedRoute><PokemonSelection selectiontoken={token} handleUseToken={() => handleUseToken(1)} /></ProtectedRoute>} />
+        <Route path='/achievements' element={<ProtectedRoute><Achievements userId = {userId} /></ProtectedRoute>} />
       </Routes>
     </div>
   )
