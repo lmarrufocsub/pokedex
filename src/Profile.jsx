@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import Tracker from "./Tracker";
+import Graph from "./Graph";
 import "./styles/profile.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +33,10 @@ function Profile() {
                     <p>Pallet Town, Kanto Region</p>
                 </div>
             </div>
-            <Tracker />
+            <div className="activityContainer">
+                <Tracker />
+                <Graph />
+            </div>
             <button onClick={handleLogout}>Log Out</button>
         </div>
     )
