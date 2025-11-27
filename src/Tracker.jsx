@@ -46,13 +46,13 @@ function Tracker() {
             <h1>Pokémon Collection</h1>
             <div className="trackerDivider">
                 <div className="trackerLeft">
-                    <p>Recently Caught</p>
+                    <p><b>Recently Caught</b></p>
                     <button className="trackerButton" onClick={playCry}>
                         <img className="trackerImage" src={`https://play.pokemonshowdown.com/sprites/ani/${pokemonName}.gif`}/>
                     </button>
                 </div>
                 <div className="trackerRight">
-                    <p>Total Pokémon Caught</p>
+                    <p><b>Total Pokémon Caught</b></p>
                     <p>{total} / 151</p>
                 </div>
             </div>
