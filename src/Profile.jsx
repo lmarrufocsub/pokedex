@@ -30,14 +30,19 @@ function Profile() {
                 <div className="profileName">
                     <p style={{ color: "#DC143C", fontWeight: "bold", fontSize: "20px" }}>{userName}</p>
                     <p>Trainer</p>
-                    <p>Pallet Town, Kanto Region</p>
+                    <p>Pallet Town,</p>
+                    <p>Kanto Region</p>
+                </div>
+                <div className="profileButtonContainer">
+                    <button className="profileButton">Change Username</button>
+                    <button className="profileButton">Reset Password</button>
+                    <button className="profileButton"  onClick={handleLogout}>Log Out</button>
                 </div>
             </div>
             <div className="activityContainer">
                 <Tracker />
                 <Graph />
             </div>
-            <button onClick={handleLogout}>Log Out</button>
         </div>
     )
 }
