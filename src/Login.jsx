@@ -10,7 +10,8 @@ function Login() {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault()
         if (!username || !password) {
             setMessage("Please fill in both fields.");
             return;
@@ -47,7 +48,7 @@ function Login() {
                 <br />
                 <p>Log in to access your personal dashboard in Pokédex Online<br/>and continue your Pokémon journey!</p>
             </div>
-            <div className="right">
+            <form onSubmit={handleLogin} className="right">
                 <h3 style={{fontSize: "50px", margin: 0}}>Pokédex Online</h3>
                 <h2>Log in to your account</h2>
                 <input
@@ -66,7 +67,7 @@ function Login() {
                     required
                 />
                 <br />
-                <button className="login-button" onClick={handleLogin}>
+                <button className="login-button" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e0e0e0">
                         <path d="M480-144v-72h264v-528H480v-72h264q29.7 0 50.85 21.15Q816-773.7 816-744v528q0 29.7-21.15 50.85Q773.7-144 744-144H480Zm-72-168-51-51 81-81H144v-72h294l-81-81 51-51 168 168-168 168Z"/>
                     </svg>
@@ -77,7 +78,7 @@ function Login() {
                 <Link style={{ color: "#e0e0e0" }} to="/signup">
                     Don't have an account? Register here.
                 </Link>
-            </div>
+            </form>
         </div>
     );
 }
