@@ -136,7 +136,7 @@ function App() {
         <Route path='/pokedex' element={<ProtectedRoute><PokedexList /></ProtectedRoute>} />
         <Route path='/pokemon-details/:id' element={<ProtectedRoute><PokemonDetails /></ProtectedRoute>} />
         <Route path='/pokemon-quiz' element={<ProtectedRoute><PokemonQuiz onCorrectAnswer={handleCorrectQuizAnswer} /></ProtectedRoute>} />
-        <Route path='/pokemon-selection' element={<ProtectedRoute><PokemonSelection userId={userId} selectiontoken={token} handleUseToken={() => handleUseToken(1)} /></ProtectedRoute>} />
+        <Route path='/pokemon-selection' element={<ProtectedRoute><PokemonSelection userId={userId} token={token} handleUseToken={() => handleUseToken(1)} /></ProtectedRoute>} />
         <Route path='/achievements' element={<ProtectedRoute><Achievements userId = {userId} /></ProtectedRoute>} />
       </Routes>
     </div>
