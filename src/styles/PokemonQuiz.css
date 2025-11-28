@@ -26,3 +26,8 @@
     background-color: white;
     border-radius: 8px;
 }
+
+.quiz-option:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
