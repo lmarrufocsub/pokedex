@@ -23,7 +23,7 @@
   {
     "id": 4,
     "name": "GOT A POKEBALL",
-    "description": "You caught Voltrob",
+    "description": "You caught Voltorb",
     "img": "/assets/png",
     "reqPokemon": [100, 101]
   }
