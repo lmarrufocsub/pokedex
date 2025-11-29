@@ -41,8 +41,8 @@ function Login() {
     };
 
     return (
-        <div className="container" style={{ textAlign: "center", backgroundImage: "url('/assets/Screenshot 2025-11-06 225145.png')" }}>
-            <div className="left">
+        <div className="container" style={{ textAlign: "center" }}>
+            <div className="left left-login">
                 <img className="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png"/>
                 <h1>Welcome back, Trainer!</h1>
                 <br />

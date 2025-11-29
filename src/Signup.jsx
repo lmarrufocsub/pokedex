@@ -30,8 +30,8 @@ function Signup() {
     }};
 
   return (
-    <div className="container" style={{ textAlign: "center", backgroundImage: "url('/assets/Screenshot 2025-11-10 205252.png')"}}>
-        <div className="left">
+    <div className="container" style={{ textAlign: "center"}}>
+        <div className="left left-signup">
             <img className="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png"/>
             <h1>Register an account with us!</h1>
             <br />
