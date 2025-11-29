@@ -12,6 +12,7 @@ function Navbar({ navbartoken, handleLogout }) {
                 <Link to="/pokemon-quiz" className='nav-link'>Game Corner</Link>
                 <Link to="/pokemon-selection" className='nav-link'>Mystery Pull</Link>
                 <Link to="/profile" className='nav-link'>Profile</Link>
+                <Link to="/achievements" className='nav-link'> Achievements </Link>
                 <button className='navbar-button' onClick={handleLogout}>
                     Logout
                 </button>

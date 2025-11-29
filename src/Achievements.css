@@ -30,11 +30,12 @@
 .achievement-image {
     width: 50px;
     height: 50px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
+    border-radius: 10px;
 }
 
 .achievement-description {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .achievement-title {

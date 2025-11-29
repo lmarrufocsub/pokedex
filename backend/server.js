@@ -2,6 +2,7 @@ import express from "express";
 import sqlite3 from "sqlite3";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import fs from "fs";
 
 const app = express();
 const db = new sqlite3.Database("users.db");
@@ -319,6 +320,8 @@ app.post("/addpokemon", (req, res) => {
   );
 });
 
+const data = fs.readFileSync("achievements.json")
+const achievementsData = JSON.parse(data)
 
 app.get("/achievements", (req, res) => {
 
@@ -326,54 +329,34 @@ app.get("/achievements", (req, res) => {
   db.all("SELECT pokemon_id FROM user_pokemon WHERE user_id = ?", [userId], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
 
-    const pokemonIDs = [];
-    const achievements = [];
+    const pokemonIDs = []
+    const achievements = []
 
     for (let i = 0; i < rows.length; i++)
     {
         pokemonIDs.push(rows[i].pokemon_id)
     }
 
-    if (pokemonIDs.length >= 100)
+    for (let i = 0; i < achievementsData.length; i++)
     {
-       achievements.push({
-       id: 1,
-       name: "Living on a Prayer",
-       description: "You got a 100 pokemon.",
-       img: "/assets/png"
-       })
-    }
+        const achievement = achievementsData[i]
 
-    if (pokemonIDs.includes(19) || pokemonIDs.includes(20))
-    {
-       achievements.push({
-       id: 2,
-       name: "IT'S A RAT",
-       description: "You caught Rattata or Raticate",
-       img: "/assets/png"
-       })
+        if (achievement.count && pokemonIDs.length >= achievement.count)
+        {
+            achievements.push(achievement)
+        }
+        else if (achievement.reqPokemon)
+        {
+            for (let j = 0; j < achievement.reqPokemon.length; i++)
+            {
+                if (pokemonIDs.includes(achievement.reqPokemon[j]))
+                {
+                     achievements.push(achievement)
+                     break
+                }
+            }
+        }
     }
-
-    if (pokemonIDs.includes(69) || pokemonIDs.includes(70) || pokemonIDs.includes(71))
-    {
-       achievements.push({
-       id: 3,
-       name: "Plants vs Zombies",
-       description: "You caught Bellsprout, Weepinbell, or Victreebel",
-       img: "/assets/png"
-       })
-    }
-
-    if (pokemonIDs.includes(100) || pokemonIDs.includes(101))
-    {
-       achievements.push({
-       id: 4,
-       name: "GOT A POKEBALL",
-       description: "You caught Voltrob",
-       img: "/assets/png"
-       })
-    }
-
     res.json(achievements);
 
   })

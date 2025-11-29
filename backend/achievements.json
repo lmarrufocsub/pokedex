@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Living on a Prayer",
+    "description": "You got a 100 pokemon.",
+    "img": "/assets/png",
+    "count": 100
+  },
+  {
+    "id": 2,
+    "name": "IT'S A RAT",
+    "description": "You caught Rattata or Raticate",
+    "img": "/assets/img.png",
+    "reqPokemon": [19, 20]
+  },
+  {
+    "id": 3,
+    "name": "Plants vs Zombies",
+    "description": "You caught Bellsprout, Weepinbell, or Victreebel",
+    "img": "/assets/png",
+    "reqPokemon": [69, 70, 71]
+  },
+  {
+    "id": 4,
+    "name": "GOT A POKEBALL",
+    "description": "You caught Voltrob",
+    "img": "/assets/png",
+    "reqPokemon": [100, 101]
+  }
+]
