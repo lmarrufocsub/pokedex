@@ -3,7 +3,7 @@ import './Achievements.css';
 
 function Achievements ({userId}) {
 
-   const [achievements, setAchievements] = useState();
+   const [achievements, setAchievements] = useState([])
 
    async function grabAchievements(){
 
