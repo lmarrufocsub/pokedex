@@ -40,18 +40,21 @@ function Profile() {
         <div className="profileContainer">
             <h1 style={{ marginBottom: "30px", marginTop: "30px" }}>My Profile</h1>
             <br />
-            <div className="profileBanner">
-                <img className="profileIcon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png" />
-                <div className="profileName">
-                    <p style={{ color: "#DC143C", fontWeight: "bold", fontSize: "20px" }}>{userName}</p>
-                    <p>Trainer</p>
-                    <p>{homeTown},</p>
-                    <p>{region}</p>
-                </div>
-                <div className="profileButtonContainer">
-                    <button className="profileButton" onClick={handleSetChangeVisible}>{changeVisible ? "Cancel" : "Change Username"}</button>
-                    <button className="profileButton" onClick={() => {alert("Due to recent cyberattacks by Team Rocket, password resets are temporarily disabled for security. Please contact our technical support team to request a password reset email.")}}>Reset Password</button>
-                    <button className="profileButton" onClick={handleSetHometown}>{homeVisible ? "Cancel" : "Set Hometown"}</button>
+            <div className="bannerShadow">
+                <img className="profileBackground" src="assets\Screenshot 2025-11-29 210221.png"/>
+                <div className="profileBanner">
+                    <img className="profileIcon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/2052px-Pok%C3%A9_Ball_icon.svg.png" />
+                    <div className="profileName">
+                        <p style={{ color: "#DC143C", fontWeight: "bold", fontSize: "20px" }}>{userName}</p>
+                        <p>Trainer</p>
+                        <p>{homeTown},</p>
+                        <p>{region}</p>
+                    </div>
+                    <div className="profileButtonContainer">
+                        <button className="profileButton" onClick={handleSetChangeVisible}>{changeVisible ? "Cancel" : "Change Username"}</button>
+                        <button className="profileButton" onClick={() => {alert("Due to recent cyberattacks by Team Rocket, password resets are temporarily disabled for security. Please contact our technical support team to request a password reset email.")}}>Reset Password</button>
+                        <button className="profileButton" onClick={handleSetHometown}>{homeVisible ? "Cancel" : "Set Hometown"}</button>
+                    </div>
                 </div>
             </div>
             {changeVisible && <ChangeUsername />}
