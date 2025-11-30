@@ -357,4 +357,32 @@ app.get("/achievements", (req, res) => {
   })
 })
 
+app.put("/update-username", (req, res) => {
+  const { id, username } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "User ID is required" });
+  }
+
+  if (!username) {
+    return res.status(400).json({ error: "Username is required" });
+  }
+
+  const sql = "UPDATE users SET username = ? WHERE id = ?";
+  const params = [username, id];
+
+  db.run(sql, params, function (err) {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: "Failed to update username" });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ message: "Username updated successfully" });
+  });
+});
+
 app.listen(5000, () => console.log("Server running on port 5000"));
