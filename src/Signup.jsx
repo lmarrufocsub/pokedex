@@ -40,6 +40,7 @@ function Signup() {
             <h3 style={{fontSize: "50px", margin: 0}}>Pokédex Online</h3>
             <h2>Create an account</h2>
             <input
+                className="loginInput"
                 type="text"
                 placeholder="Enter username"
                 value={username}
@@ -47,6 +48,7 @@ function Signup() {
             />
             <br />
             <input
+                className="loginInput"
                 type="password"
                 placeholder="Enter password"
                 value={password}
