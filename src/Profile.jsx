@@ -50,7 +50,7 @@ function Profile() {
                 </div>
                 <div className="profileButtonContainer">
                     <button className="profileButton" onClick={handleSetChangeVisible}>{changeVisible ? "Cancel" : "Change Username"}</button>
-                    <button className="profileButton">Reset Password</button>
+                    <button className="profileButton" onClick={() => {alert("Due to recent cyberattacks by Team Rocket, password resets are temporarily disabled for security. Please contact our technical support team to request a password reset email.")}}>Reset Password</button>
                     <button className="profileButton" onClick={handleSetHometown}>{homeVisible ? "Cancel" : "Set Hometown"}</button>
                 </div>
             </div>
